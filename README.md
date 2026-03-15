@@ -2,7 +2,14 @@
 
 A full-stack job application tracker with social features, built as a portfolio project to demonstrate end-to-end development skills.
 
-**Live Demo:** _(add your deployment URL here)_
+**Live Demo:** [https://apply-wise.vercel.app/](https://apply-wise.vercel.app/)
+
+**Demo credentials** — log in and explore without signing up:
+
+```
+Email:    demo@applywise.app
+Password: demo1234
+```
 
 ---
 
@@ -50,15 +57,6 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
-
----
-
-## Demo Credentials
-
-```
-Email:    demo@applywise.app
-Password: demo1234
-```
 
 ---
 

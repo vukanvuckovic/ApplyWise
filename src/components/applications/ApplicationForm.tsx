@@ -3,8 +3,7 @@ import {
   updateApplication,
 } from "@/appwrite/applicationActions";
 import { useToast } from "@/hooks/use-toast";
-import React, { useState } from "react";
-import { createPortal } from "react-dom";
+import { useState } from "react";
 import { AppDispatch, RootState } from "@/app/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setForm } from "@/features/applicationFormSlice";
@@ -12,7 +11,7 @@ import {
   addApplication,
   exchangeApplications,
 } from "@/features/applicationsSlice";
-import { X } from "lucide-react";
+import { CloseCircle } from "iconsax-react";
 
 interface FormErrors {
   businessName?: string;
@@ -95,23 +94,30 @@ const ApplicationForm = () => {
     setLoading(false);
   };
 
-  const modal = (
-    <div className="gsap-overlay flex flex-row justify-center items-end md:items-center py-0 md:py-10 px-0 md:px-4 h-[100dvh] w-[100dvw] fixed top-0 left-0 bg-black/40 z-[150]">
-      <div className="gsap-dialog flex flex-col gap-5 py-6 px-6 w-full max-w-[700px] bg-white rounded-t-2xl md:rounded-2xl max-h-[92dvh] overflow-hidden">
+  return (
+    <div
+      onClick={() => dispatch(setForm(false))}
+      className="gsap-overlay h-[100dvh] w-[100dvw] bg-black/50 fixed top-0 left-0 flex flex-col justify-center items-center z-[70]"
+    >
+      <div
+        className="gsap-dialog flex flex-col gap-5 bg-white rounded-2xl w-full max-w-[700px] h-fit max-h-[80dvh] p-6 pb-0 mx-4"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="flex flex-row items-center justify-between flex-shrink-0">
           <h2 className="leading-none">
             {application ? "Edit Application" : "New Application"}
           </h2>
           <button
             onClick={() => dispatch(setForm(false))}
-            className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors duration-150"
+            className="p-1 rounded-lg hover:bg-gray-100 transition-colors duration-150"
             aria-label="Close"
           >
-            <X size={18} color="#9ca3af" />
+            <CloseCircle size={20} color="#9ca3af" />
           </button>
         </div>
+
         <form
-          className="flex flex-col flex-1 gap-4 overflow-y-auto"
+          className="flex flex-col gap-4 pb-6 overflow-y-auto scrollbar-none"
           onSubmit={(e) => {
             e.preventDefault();
             if (application) {
@@ -159,21 +165,24 @@ const ApplicationForm = () => {
               )}
             </div>
           </div>
-          <div className="flex-1 flex flex-col gap-1.5 min-h-[120px]">
+
+          <div className="flex flex-col gap-1.5">
             <label className="custom-label" htmlFor="description">
               Notes / Details
             </label>
             <textarea
               name="description"
+              rows={5}
               placeholder="Add any relevant notes about this role…"
-              className="input-field flex-1 resize-none min-h-[120px]"
+              className="input-field resize-none"
               value={formData.description}
               onChange={(e) =>
                 handleInput({ field: "description", value: e.target.value })
               }
             />
           </div>
-          <div className="flex flex-row items-center justify-end gap-2 pt-1">
+
+          <div className="flex flex-row items-center justify-end gap-2">
             <button
               type="button"
               onClick={() => dispatch(setForm(false))}
@@ -195,8 +204,6 @@ const ApplicationForm = () => {
       </div>
     </div>
   );
-
-  return createPortal(modal, document.body);
 };
 
 export default ApplicationForm;
