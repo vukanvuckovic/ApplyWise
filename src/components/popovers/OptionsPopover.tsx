@@ -8,17 +8,13 @@ import { Edit, Setting2, Trash } from "iconsax-react";
 import { deleteApplication } from "@/appwrite/applicationActions";
 import { deleteApplication as deleteApplicationState } from "@/features/applicationsSlice";
 import { useToast } from "@/hooks/use-toast";
-import ApplicationForm from "../applications/ApplicationForm";
 import { ApplicationContext } from "../sections/RecentApplications";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/app/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/app/store";
 import { setEditForm } from "@/features/applicationFormSlice";
 import ConfirmDialog from "../ConfirmDialog";
 
 const OptionsPopover = () => {
-  const formOpen = useSelector(
-    (state: RootState) => state.applicationForm.formOpen
-  );
   const dispatch = useDispatch<AppDispatch>();
   const [popoverOpen, setPopoverOpen] = useState(false);
 
@@ -42,7 +38,6 @@ const OptionsPopover = () => {
 
   return (
     <>
-      {formOpen && <ApplicationForm />}
       <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
         <PopoverTrigger className="p-1 rounded-md hover:bg-gray-100 transition-colors duration-100 z-30">
           <Setting2 color="#9ca3af" size={18} />

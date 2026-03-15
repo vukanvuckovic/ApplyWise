@@ -4,7 +4,6 @@ import { Add } from "iconsax-react";
 import React, { createContext, useEffect, useState } from "react";
 import ApplicationCard from "../applications/ApplicationCard";
 import { Models } from "node-appwrite";
-import ApplicationForm from "../applications/ApplicationForm";
 import { Skeleton } from "../ui/skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/store";
@@ -39,9 +38,6 @@ const RecentApplications = () => {
   const applications = useSelector(
     (state: RootState) => state.applications.applications
   );
-  const formOpen = useSelector(
-    (state: RootState) => state.applicationForm.formOpen
-  );
   const dispatch = useDispatch<AppDispatch>();
 
   const [limit, setLimit] = useState(5);
@@ -66,10 +62,7 @@ const RecentApplications = () => {
   }, [limit]);
 
   return (
-    <>
-      {formOpen && <ApplicationForm />}
-
-      <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
         <div className="flex flex-row items-center justify-between">
           <h2 className="leading-none">Recent Applications</h2>
           <button
@@ -125,8 +118,7 @@ const RecentApplications = () => {
             ))
           )}
         </div>
-      </div>
-    </>
+    </div>
   );
 };
 

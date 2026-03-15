@@ -1,17 +1,21 @@
 "use client";
 import BackToTop from "@/components/BackToTop";
+import ApplicationForm from "@/components/applications/ApplicationForm";
 import FooterBar from "@/components/sections/FooterBar";
 import FriendsProgress from "@/components/sections/FriendsProgress";
 import Header from "@/components/sections/Header";
 import MyStats from "@/components/sections/MyStats";
 import RecentApplications from "@/components/sections/RecentApplications";
 import UploadFiles from "@/components/sections/UploadFiles";
-import { Provider } from "react-redux";
-import { store } from "../store";
+import { Provider, useSelector } from "react-redux";
+import { store, RootState } from "../store";
 
-const Home = () => {
+const AppContent = () => {
+  const formOpen = useSelector((state: RootState) => state.applicationForm.formOpen);
+
   return (
-    <Provider store={store}>
+    <>
+      {formOpen && <ApplicationForm />}
       <div className="flex flex-col gap-6 md:gap-8 min-h-[100dvh] w-full max-w-[1140px] 2xl:max-w-[1440px] mx-auto px-4 md:px-8 pt-4">
         <div className="animate-fade-up stagger-1">
           <Header />
@@ -31,8 +35,14 @@ const Home = () => {
           <FooterBar />
         </div>
       </div>
-    </Provider>
+    </>
   );
 };
+
+const Home = () => (
+  <Provider store={store}>
+    <AppContent />
+  </Provider>
+);
 
 export default Home;
